@@ -10,6 +10,14 @@ keywords: Linux
 
 ## 实用命令
 
+### grep + rm
+
+删选某关键字的文件，并批量删除
+
+```sh
+grep "keyword" ./*.md | awk -F: '{print $1}' | xargs rm -rf
+```
+
 ### fuser
 
 查看文件被谁占用。
