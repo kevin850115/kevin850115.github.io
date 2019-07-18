@@ -1,6 +1,5 @@
 .DS_Store
 target/
-!.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -21,3 +20,4 @@ nbproject/private/
 build/
 nbbuild/
 nbdist/
+.idea/
