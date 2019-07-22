@@ -14,10 +14,12 @@ target/
 *.iws
 *.iml
 *.ipr
+*.xml
 
 ### NetBeans ###
 nbproject/private/
 build/
 nbbuild/
 nbdist/
-.idea/
+
+
