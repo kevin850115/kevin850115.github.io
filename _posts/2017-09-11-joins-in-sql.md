@@ -44,10 +44,6 @@ mysql> SELECT * from Table_B ORDER BY PK ASC;
 
 INNER JOIN 一般被译作内连接。内连接查询能将左表（表 A）和右表（表 B）中能关联起来的数据连接后返回。
 
-**文氏图：**
-
-![INNER JOIN](https://raw.githubusercontent.com/mzlogin/mzlogin.github.io/master/images/posts/database/inner-join.png)
-
 **示例查询：**
 
 ```sql
@@ -161,14 +157,14 @@ ON A.PK = B.PK' at line 4
 应当返回的结果（使用 UNION 模拟）：
 
 ```
-mysql> SELECT * 
+mysql> SELECT *
     -> FROM Table_A
-    -> LEFT JOIN Table_B 
+    -> LEFT JOIN Table_B
     -> ON Table_A.PK = Table_B.PK
     -> UNION ALL
     -> SELECT *
     -> FROM Table_A
-    -> RIGHT JOIN Table_B 
+    -> RIGHT JOIN Table_B
     -> ON Table_A.PK = Table_B.PK
     -> WHERE Table_A.PK IS NULL;
 +------+---------+------+---------+
@@ -283,7 +279,7 @@ OR B.PK IS NULL' at line 4
 应当返回的结果（用 UNION 模拟）：
 
 ```
-mysql> SELECT * 
+mysql> SELECT *
     -> FROM Table_A
     -> LEFT JOIN Table_B
     -> ON Table_A.PK = Table_B.PK
@@ -375,7 +371,7 @@ EMP\_ID 字段表示员工 ID，EMP\_NAME 字段表示员工姓名，EMP\_SUPV\_
 现在我们想查询所有有主管的员工及其对应的主管 ID 和姓名，就可以用 SELF JOIN 来实现。
 
 ```sql
-SELECT A.EMP_ID AS EMP_ID, A.EMP_NAME AS EMP_NAME, 
+SELECT A.EMP_ID AS EMP_ID, A.EMP_NAME AS EMP_NAME,
     B.EMP_ID AS EMP_SUPV_ID, B.EMP_NAME AS EMP_SUPV_NAME
 FROM Table_C A, Table_C B
 WHERE A.EMP_SUPV_ID = B.EMP_ID;
