@@ -15,7 +15,7 @@ keywords: ATA, 文章
 # 架构设计
 - [ ] [技术人成长七部曲@深解四大架构设计](https://www.atatech.org/articles/144474)
 - [x] [一文教会你如何写复杂业务代码](https://www.atatech.org/articles/146064?flag_data_from=flag_data_from=home_hotest_article)
-- [ ] [领域建模](https://www.atatech.org/articles/102967)
+- [ ] [复杂性应对之道 - 领域建模](https://www.atatech.org/articles/102967)
 
 # 读码
 ## [技术人成长七部曲@你该深入理解的五大源码解析](https://www.atatech.org/articles/144215)
@@ -36,6 +36,7 @@ keywords: ATA, 文章
 - [x] [JAVA-36讲大纲](https://blog.csdn.net/sinat_25295611/article/details/81592322)
 - [x] [JAVA学习资料整理](https://www.atatech.org/articles/65587)
 - [x] [集团开发规约](https://www.atatech.org/articles/50331#2)
+- [ ] [JAVA知识图谱](https://xue.alibaba-inc.com/trs/plan/atlasDetail.htm?spm=0.0.0.0.YbKEMJ&atlasUid=b82a6eef-6d6b-4779-8701-650d5b4b1725)
 
 # 技术基础
 - [ ] [技术基础](https://www.atatech.org/articles/143975)
