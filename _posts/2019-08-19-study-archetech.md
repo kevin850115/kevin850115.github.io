@@ -6,12 +6,14 @@ description: ATA-学习地图
 keywords: ATA, 文章
 ---
 
-# 《深解四大架构设计》，包含分布式、高并发、高性能、云原生。
+# 《深解四大架构设计》，包含分布式、高并发、高性能、云原生
+- https://www.atatech.org/articles/144474
+
+## 【交易相关】
+- [ ][交易平台架构设计](https://www.atatech.org/articles/146528?spm=ata.home.0.0.11fd7536hdzlNC&flag_data_from=flag_data_from=home_hotest_article)
 
 ## 【分布式篇】
-分布式架构知识体系
-
-晓土  大宣发业务中心-产品技术
+- [ ] [分布式架构知识体系](https://pre-ata.atatech.org/articles/121308)
 
 深入浅出分布式架构-一致性模型
 
