@@ -29,6 +29,7 @@ keywords: ATA，架构设计
 ## 数据&算法
 - [ ] [学习计划@算法引爆点](https://xue.alibaba-inc.com/trs/plan/planDetail.htm?spm=a1z39.8650609.0.0.5c754aa5x1ZEmV&planUid=f78562b3-de44-4d7b-8622-85e7a7a0cdc6)
 - [ ] [算法极客学院](https://www.atatech.org/edu/geek/?p=3)
+- [ ] [数据可视化-最佳实践](https://www.atatech.org/articles/146940?spm=ata.home.0.0.11fd7536mogTXf&flag_data_from=home_hot_article)
 
 ## 管理 & 沟通
 - [ ] [管理大咖-ATA分享](https://xue.alibaba-inc.com/trs/detail.htm?src=email&trainId=fba1833d-0d7b-42a9-9fbc-c1b856e8d46c)
