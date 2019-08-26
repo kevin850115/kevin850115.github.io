@@ -1,72 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:smart="http://smart.alibaba-inc.com/schema/process" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             id="test-exclusive"
-             version="1.0.0"
-             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="Examples">
-
-    <process id="exclusiveTest">
-
-        <startEvent id="theStart">
-        </startEvent>
-
-        <sequenceFlow id="flow1" sourceRef="theStart" targetRef="submitTask"/>
-
-        <userTask id="submitTask" name="SubmitTask">
-        </userTask>
-
-        <sequenceFlow id="flowFromSubmitTask" sourceRef="submitTask" targetRef="auditTask"/>
-
-        <userTask id="auditTask" name="AuditTask">
-        </userTask>
-
-        <sequenceFlow id="flowFromAuditTask" sourceRef="auditTask" targetRef="exclusiveGw1"/>
-
-
-        <exclusiveGateway id="exclusiveGw1" name="Exclusive Gateway 1"/>
-
-        <sequenceFlow id="flow2" sourceRef="exclusiveGw1"
-                      targetRef="executeTask">
-            <conditionExpression xsi:type="mvel">approve == 'agree'
-            </conditionExpression>
-        </sequenceFlow>
-
-        <sequenceFlow id="flow3" sourceRef="exclusiveGw1"
-                      targetRef="advancedAuditTask">
-            <conditionExpression xsi:type="mvel">approve == 'upgrade'
-            </conditionExpression>
-        </sequenceFlow>
-
-
-        <serviceTask id="executeTask" name="ExecuteTask"
-                     smart:class="com.alibaba.simplest.bpm.util.AuditProcessServiceTaskDelegation">
-        </serviceTask>
-
-
-        <sequenceFlow id="flow5" sourceRef="executeTask" targetRef="theEnd"/>
-
-
-        <userTask id="advancedAuditTask" name="AdvancedAuditTask">
-        </userTask>
-
-        <sequenceFlow id="flowFromAdvancedAuditTask" sourceRef="advancedAuditTask"
-                      targetRef="exclusiveGw2"/>
-
-        <exclusiveGateway id="exclusiveGw2" name="Exclusive Gateway 2"/>
-
-        <sequenceFlow id="flow9" sourceRef="exclusiveGw2"
-                      targetRef="executeTask">
-            <conditionExpression type="mvel">approve == 'agree'
-            </conditionExpression>
-        </sequenceFlow>
-
-        <sequenceFlow id="flow10" sourceRef="exclusiveGw2"
-                      targetRef="theEnd">
-            <conditionExpression type="mvel">approve == 'deny'
-            </conditionExpression>
-        </sequenceFlow>
-
-        <endEvent id="theEnd"/>
-
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:smart="http://smart.alibaba-inc.com/schema/process" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="refund_order_pre_calculate" targetNamespace="smart" version="1.0.0">
+    <process id="com.fliggy.flyrp.scenario.activity.refundorder.init.OrderInitChangeOrderListActivity" name="申请单域.初始化历史改签单" isExecutable="false">
+        <startEvent id="StartEvent" name="开始" />
+        <serviceTask id="A" name="申请单域.初始化订单信息" smart:class="com.fliggy.flyrp.scenario.activity.order.OrderInitActivity" />
+        <serviceTask id="B" name="申请单域.权限校验" smart:class="com.fliggy.flyrp.scenario.activity.order.OrderPowerCheckActivity" />
+        <serviceTask id="C" name="初始化历史改签单信息" smart:class="com.fliggy.flyrp.scenario.activity.refundorder.init.OrderInitChangeOrderListActivity" />
+        <endEvent id="EndEvent" name="结束" />
+        <sequenceFlow id="StartEvent_A" sourceRef="StartEvent" targetRef="A" />
+        <sequenceFlow id="SequenceFlow_0l8paul" sourceRef="A" targetRef="B" />
+        <sequenceFlow id="SequenceFlow_1ol42yq" sourceRef="B" targetRef="C" />
+        <serviceTask id="ServiceTask_0oilv0r" name="改签费用统计" smart:class="com.fliggy.flyrp.scenario.activity.refundorder.calculate.PreCalculateChangeMoneyCalculateActivity" />
+        <sequenceFlow id="SequenceFlow_0qgrtk6" sourceRef="C" targetRef="ServiceTask_0oilv0r" />
+        <serviceTask id="ServiceTask_18a891f" name="活动统计" smart:class="com.fliggy.flyrp.scenario.activity.refundorder.calculate.PreCalculatePromotionDistributeCalculateActivity" />
+        <sequenceFlow id="SequenceFlow_0urddnd" sourceRef="ServiceTask_0oilv0r" targetRef="ServiceTask_18a891f" />
+        <serviceTask id="ServiceTask_18ka901" name="构建支付信息" smart:class="com.fliggy.flyrp.scenario.activity.refundorder.calculate.PreCalculateBuildPayFeeDetailActivity" />
+        <sequenceFlow id="SequenceFlow_0l05aea" sourceRef="ServiceTask_18a891f" targetRef="ServiceTask_18ka901" />
+        <serviceTask id="ServiceTask_0aojsw6" name="构建扣款信息" smart:class="com.fliggy.flyrp.scenario.activity.refundorder.calculate.PreCalculateBuildDeductFeeDetailActivity" />
+        <sequenceFlow id="SequenceFlow_1mzf0kv" sourceRef="ServiceTask_18ka901" targetRef="ServiceTask_0aojsw6" />
+        <serviceTask id="ServiceTask_0y5h38j" name="构建提醒信息" smart:class="com.fliggy.flyrp.scenario.activity.refundorder.calculate.PreCalculateBuildTipInfoActivity" />
+        <sequenceFlow id="SequenceFlow_1jjquhm" sourceRef="ServiceTask_0aojsw6" targetRef="ServiceTask_0y5h38j" />
+        <serviceTask id="ServiceTask_1cu61vs" name="计算总计可退金额" smart:class="com.fliggy.flyrp.scenario.activity.refundorder.calculate.PreCalculateTotalCanRefundMoneyActivity" />
+        <sequenceFlow id="SequenceFlow_1f40yjq" sourceRef="ServiceTask_0y5h38j" targetRef="ServiceTask_1cu61vs" />
+        <sequenceFlow id="SequenceFlow_0zoq3da" sourceRef="ServiceTask_1cu61vs" targetRef="EndEvent" />
     </process>
-
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="com.fliggy.flyrp.scenario.activity.refundorder.init.OrderInitChangeOrderListActivity">
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent">
+                <dc:Bounds x="114" y="53" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="121" y="89" width="22" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="ServiceTask_004rpol_di" bpmnElement="A">
+                <dc:Bounds x="82" y="146" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="ServiceTask_1dvooxu_di" bpmnElement="B">
+                <dc:Bounds x="82" y="261" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="ServiceTask_03fpcka_di" bpmnElement="C">
+                <dc:Bounds x="82" y="378" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="EndEvent_0gqmvfr_di" bpmnElement="EndEvent">
+                <dc:Bounds x="528" y="364" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="535" y="403" width="22" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_026hpn2_di" bpmnElement="com.fliggy.flyrp.scenario.activity.refundorder.init.OrderInitChangeOrderListActivity">
+                <di:waypoint type="dc:Point" x="132" y="123" />
+                <di:waypoint type="dc:Point" x="132" y="229" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="147" y="169" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_1peltcz_di" bpmnElement="StartEvent_A">
+                <di:waypoint type="dc:Point" x="132" y="89" />
+                <di:waypoint type="dc:Point" x="132" y="146" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="102" y="111" width="90" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_0l8paul_di" bpmnElement="SequenceFlow_0l8paul">
+                <di:waypoint type="dc:Point" x="132" y="226" />
+                <di:waypoint type="dc:Point" x="132" y="261" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="147" y="236.5" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_1ol42yq_di" bpmnElement="SequenceFlow_1ol42yq">
+                <di:waypoint type="dc:Point" x="132" y="341" />
+                <di:waypoint type="dc:Point" x="132" y="378" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="147" y="352.5" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ServiceTask_0oilv0r_di" bpmnElement="ServiceTask_0oilv0r">
+                <dc:Bounds x="82" y="498.2114093959732" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0qgrtk6_di" bpmnElement="SequenceFlow_0qgrtk6">
+                <di:waypoint type="dc:Point" x="132" y="458" />
+                <di:waypoint type="dc:Point" x="132" y="498" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="147" y="471" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ServiceTask_18a891f_di" bpmnElement="ServiceTask_18a891f">
+                <dc:Bounds x="303.0626398210291" y="146" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0urddnd_di" bpmnElement="SequenceFlow_0urddnd">
+                <di:waypoint type="dc:Point" x="182" y="538" />
+                <di:waypoint type="dc:Point" x="243" y="538" />
+                <di:waypoint type="dc:Point" x="243" y="186" />
+                <di:waypoint type="dc:Point" x="303" y="186" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="258" y="355" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ServiceTask_18ka901_di" bpmnElement="ServiceTask_18ka901">
+                <dc:Bounds x="303" y="272.21140939597313" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0l05aea_di" bpmnElement="SequenceFlow_0l05aea">
+                <di:waypoint type="dc:Point" x="353" y="226" />
+                <di:waypoint type="dc:Point" x="353" y="272" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="368" y="242" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ServiceTask_0aojsw6_di" bpmnElement="ServiceTask_0aojsw6">
+                <dc:Bounds x="303" y="396.21140939597313" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1mzf0kv_di" bpmnElement="SequenceFlow_1mzf0kv">
+                <di:waypoint type="dc:Point" x="353" y="352" />
+                <di:waypoint type="dc:Point" x="353" y="396" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="368" y="367" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ServiceTask_0y5h38j_di" bpmnElement="ServiceTask_0y5h38j">
+                <dc:Bounds x="303" y="498" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1jjquhm_di" bpmnElement="SequenceFlow_1jjquhm">
+                <di:waypoint type="dc:Point" x="353" y="476" />
+                <di:waypoint type="dc:Point" x="353" y="498" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="368" y="480" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ServiceTask_1cu61vs_di" bpmnElement="ServiceTask_1cu61vs">
+                <dc:Bounds x="495.9782844733985" y="498.16938110749186" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1f40yjq_di" bpmnElement="SequenceFlow_1f40yjq">
+                <di:waypoint type="dc:Point" x="403" y="538" />
+                <di:waypoint type="dc:Point" x="450" y="538" />
+                <di:waypoint type="dc:Point" x="450" y="538" />
+                <di:waypoint type="dc:Point" x="496" y="538" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="465" y="531.5" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_0zoq3da_di" bpmnElement="SequenceFlow_0zoq3da">
+                <di:waypoint type="dc:Point" x="546" y="498" />
+                <di:waypoint type="dc:Point" x="546" y="400" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="561" y="442" width="0" height="13" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
 </definitions>
