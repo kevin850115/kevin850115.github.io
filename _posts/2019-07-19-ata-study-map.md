@@ -1,21 +1,8 @@
----
-layout: post
-title: 深解四大架构设计
-categories: Study
-description:
-keywords: ATA，架构设计
----
+## 代码规范
+- [ ] [那些年，我们见过的Java服务端“问题”](https://www.atatech.org/articles/148349?spm=ata.13261165.0.0.119b45f10Tv2ad)
 
-## [技术人成长七部曲 @ 详解三大软件构建方法论](https://www.atatech.org/articles/145238)
-- [ ] [分布式限流-Hystrix](https://www.jianshu.com/p/c1c0d8305fb4)
-- [ ] [限流、熔断、降级](https://www.atatech.org/articles/125717)
-- [ ] [24种设计模式整理](https://www.atatech.org/articles/26958)
-
-## [技术人成长七部曲 @ 深解四大架构设计](https://www.atatech.org/articles/144474)
-
-## [技术人成长七部曲 @ 你该深入理解的五大源码解析](https://www.atatech.org/articles/144215)
-
-## [技术人成长七部曲 @工程师必备的九大技能实操总结](https://www.atatech.org/articles/145698?flag_data_from=home_manual)
+## 安全
+- [ ] [阿里集团安全技术领域大图](https://www.atatech.org/articles/147787?spm=ata.home.0.0.11fd75367xa0ei&flag_data_from=flag_data_from=home_hotest_article)
 
 ## JAVA
 - [x] [JAVA-36讲大纲](https://blog.csdn.net/sinat_25295611/article/details/81592322)
